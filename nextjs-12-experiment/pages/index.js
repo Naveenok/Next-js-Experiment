@@ -3,15 +3,27 @@ import Image from 'next/image'
 import { useEffect } from 'react'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+/** This function hits the endpoint and pulls the api data in the server and passses the data to the component in server(server side rendering) */
+export const getServerSideProps = async () => {
+  const response = await fetch("http://localhost:3000/api/hello");
+  const data = await response.json();
+  return {
+    props: { pokemon: data }
+  }
+}
 
-  useEffect(() => {
-    const getApiResponse = async () => {
-      const response = (await (await fetch("https://naveenok-organic-memory-5vvj6g6j6jpfwr9-3000.preview.app.github.dev//api/hello")).json());
-      console.log(response);
-    }
-    getApiResponse();
-  }, []);
+export default function Home({ pokemon }) {
+
+  /** This useEffect will run on the client side not on the server(Client side rendering) */
+  // useEffect(() => {
+  //   const getApiResponse = async () => {
+  //     const response = (await (await fetch("https://naveenok-organic-memory-5vvj6g6j6jpfwr9-3000.preview.app.github.dev/api/hello")).json());
+  //     console.log(response);
+  //   }
+  //   getApiResponse();
+  // }, []);
+
+  console.log(pokemon)
 
   console.log("inside the Home component");
 
