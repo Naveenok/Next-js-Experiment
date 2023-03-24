@@ -1,8 +1,21 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useEffect } from 'react'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+
+  useEffect(() => {
+    const getApiResponse = async () => {
+      const response = (await (await fetch("https://naveenok-organic-memory-5vvj6g6j6jpfwr9-3000.preview.app.github.dev//api/hello")).json());
+      console.log(response);
+    }
+    getApiResponse();
+  }, []);
+
+  console.log("inside the Home component");
+
+
   return (
     <div className={styles.container}>
       <Head>
